@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://g8qrqo8sfvoi"]
 
+[ext_resource type="Script" uid="uid://c1yo3317thfi5" path="res://Screens/gameover.gd" id="1_5wjls"]
 [ext_resource type="Theme" uid="uid://baqbjvs68nlkt" path="res://Screens/screens.tres" id="1_7ad52"]
+[ext_resource type="PackedScene" uid="uid://qn2y6y3firdn" path="res://Game/Levels/Level_0/Level0.tscn" id="2_0rsy2"]
 
 [node name="Gameover" type="Node2D" unique_id=1404240997]
+script = ExtResource("1_5wjls")
+main = ExtResource("2_0rsy2")
 
 [node name="Control" type="Control" parent="." unique_id=2016491455]
 layout_mode = 3
@@ -33,3 +37,5 @@ offset_right = 892.0
 offset_bottom = 130.0
 theme_override_font_sizes/font_size = 25
 text = "Game over"
+
+[connection signal="button_up" from="Control/PlayButton" to="." method="_on_play_button_button_up"]
