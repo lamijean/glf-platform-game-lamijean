@@ -62,7 +62,12 @@ func on_player_got_magic_fire_sort():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if PlayerInputSingleton.does_player_select_magic_stick():
+		hud._on_magic_stick_press()
+	elif PlayerInputSingleton.does_player_select_magic_freeze():
+		hud._on_magic_freeze_press()
+	elif PlayerInputSingleton.does_player_select_magic_fire():
+		hud._on_magic_fire_press()
 
 
 func _on_hud_player_select_magic_fire() -> void:
