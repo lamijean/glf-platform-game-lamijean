@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://pkutnfx78mdg"]
+
+[ext_resource type="Script" uid="uid://daj0rob6qy87m" path="res://Screens/assets/mapping_button.gd" id="1_k1rch"]
+[ext_resource type="Theme" uid="uid://baqbjvs68nlkt" path="res://Screens/screens.tres" id="2_j0onm"]
+
+[node name="MappingButton" type="Button" unique_id=2093550370]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 12
+script = ExtResource("1_k1rch")
+
+[node name="pressAnyKey" type="Panel" parent="." unique_id=1086900653]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 34.0
+theme = ExtResource("2_j0onm")
+
+[node name="Label" type="Label" parent="pressAnyKey" unique_id=57076976]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 14.0
+offset_right = 245.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 8
+text = "Press any key.."

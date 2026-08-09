@@ -1,41 +1,125 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1cvrqr2gtfuv"]
+[gd_scene format=3 uid="uid://d1cvrqr2gtfuv"]
 
 [ext_resource type="Theme" uid="uid://baqbjvs68nlkt" path="res://Screens/screens.tres" id="1_8eslc"]
 [ext_resource type="Script" uid="uid://tr6hsles7pwm" path="res://Screens/menu.gd" id="1_w77ff"]
 [ext_resource type="PackedScene" uid="uid://qn2y6y3firdn" path="res://Game/Levels/Level_0/Level0.tscn" id="2_cvbb3"]
+[ext_resource type="PackedScene" uid="uid://pkutnfx78mdg" path="res://Screens/mapping_button.tscn" id="4_kqlvs"]
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" unique_id=1299546301]
 script = ExtResource("1_w77ff")
 main = ExtResource("2_cvbb3")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1874396558]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("1_8eslc")
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1719442099]
 layout_mode = 0
-offset_right = 1157.0
-offset_bottom = 645.0
+offset_right = 968.0
+offset_bottom = 549.0
 color = Color(0, 0, 0, 1)
 
-[node name="PlayButton" type="Button" parent="Control"]
+[node name="PlayButton" type="Button" parent="Control" unique_id=410104175]
 layout_mode = 0
-offset_left = 292.0
-offset_top = 177.0
-offset_right = 426.0
-offset_bottom = 232.0
+offset_left = 536.0
+offset_top = 157.0
+offset_right = 670.0
+offset_bottom = 212.0
 text = "Play"
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Control" unique_id=1209755280]
 layout_mode = 0
-offset_left = 37.0
-offset_top = 35.0
-offset_right = 892.0
-offset_bottom = 130.0
+offset_left = -82.0
+offset_top = 21.0
+offset_right = 773.0
+offset_bottom = 116.0
 theme_override_font_sizes/font_size = 25
 text = "Le Jeu sans nom"
+horizontal_alignment = 1
+
+[node name="controls" type="Control" parent="Control" unique_id=52312932]
+anchors_preset = 0
+offset_left = 11.0
+offset_top = 130.0
+offset_right = 51.0
+offset_bottom = 170.0
+
+[node name="ColorRect2" type="ColorRect" parent="Control/controls" unique_id=1789065646]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 160.0
+offset_right = 99.0
+offset_bottom = 200.0
+color = Color(0.23031491, 0.23031494, 0.23031494, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Control/controls" unique_id=574762284]
+layout_mode = 0
+offset_left = 164.0
+offset_top = 199.0
+offset_right = 221.0
+offset_bottom = 239.0
+color = Color(0.23031491, 0.23031494, 0.23031494, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Control/controls" unique_id=422185916]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 200.0
+offset_right = 138.0
+offset_bottom = 240.0
+color = Color(0.23031491, 0.23031494, 0.23031494, 1)
+
+[node name="Label" type="Label" parent="Control/controls" unique_id=1174688851]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 109.0
+offset_right = 131.0
+offset_bottom = 125.0
+text = "Controls"
+
+[node name="Left" parent="Control/controls" unique_id=891452833 instance=ExtResource("4_kqlvs")]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 208.0
+offset_right = 51.0
+offset_bottom = 232.0
+text = "<"
+button_label = "<"
+
+[node name="Right" parent="Control/controls" unique_id=2093550370 instance=ExtResource("4_kqlvs")]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 209.0
+offset_right = 129.0
+offset_bottom = 233.0
+text = ">"
+action_name = "move_right"
+button_label = ">"
+
+[node name="Jump" parent="Control/controls" unique_id=24887793 instance=ExtResource("4_kqlvs")]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 168.0
+offset_right = 91.0
+offset_bottom = 192.0
+text = "^"
+action_name = "jump"
+button_label = "^"
+
+[node name="Hit" parent="Control/controls" unique_id=1864469993 instance=ExtResource("4_kqlvs")]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 207.0
+offset_right = 214.0
+offset_bottom = 231.0
+text = "Hit"
+action_name = "use_magic_stick"
+button_label = "Hit"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=709289110]
+position = Vector2(344, 195)
+zoom = Vector2(0.7, 0.7)
 
 [connection signal="button_up" from="Control/PlayButton" to="." method="_on_play_button_button_up"]
