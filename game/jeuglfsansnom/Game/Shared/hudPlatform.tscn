@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://cxmei1ghmvqt4"]
+[gd_scene format=3 uid="uid://cxmei1ghmvqt4"]
 
 [ext_resource type="Script" uid="uid://nghbwcwgjwdd" path="res://Game/Shared/hud_platform.gd" id="1_d4l7n"]
 [ext_resource type="Texture2D" uid="uid://dhdj1w4koftxx" path="res://Game/Shared/hud/icon_magic_freeze.png" id="1_w0yga"]
 [ext_resource type="Texture2D" uid="uid://jerhxd5rsblp" path="res://Game/Shared/hud/icon_magic_fire.png" id="2_vrta5"]
 [ext_resource type="Texture2D" uid="uid://5grfejh462ap" path="res://Game/Shared/hud/icon_magic_stick.png" id="4_eghrs"]
 [ext_resource type="PackedScene" uid="uid://4du01hwt5k1d" path="res://Game/Shared/hud/animated_sprite_button.tscn" id="5_v6rmk"]
+[ext_resource type="Texture2D" uid="uid://bkq3bwq2xbug1" path="res://Game/Shared/hud/icon_life.png" id="6_22nxx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fd14h"]
 atlas = ExtResource("4_eghrs")
@@ -23,7 +24,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xiltm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -59,7 +60,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_66dsp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 5.0
 }]
@@ -95,34 +96,81 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c8m4a")
 }],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 5.0
 }]
 
-[node name="HUD" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0k6o"]
+atlas = ExtResource("6_22nxx")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjgm3"]
+atlas = ExtResource("6_22nxx")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqp0d"]
+atlas = ExtResource("6_22nxx")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lbj6w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0k6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjgm3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqp0d")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="HUD" type="Control" unique_id=1207868422]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_d4l7n")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2063021871]
 
-[node name="icons" type="Control" parent="CanvasLayer"]
+[node name="icons" type="Control" parent="CanvasLayer" unique_id=2142130855]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MagicStick" parent="CanvasLayer/icons" instance=ExtResource("5_v6rmk")]
+[node name="MagicStick" parent="CanvasLayer/icons" unique_id=1119183159 instance=ExtResource("5_v6rmk")]
+layout_mode = 0
 animatedSpiteSpriteFrames = SubResource("SpriteFrames_aadpx")
 
-[node name="MagicFreeze" parent="CanvasLayer/icons" instance=ExtResource("5_v6rmk")]
+[node name="MagicFreeze" parent="CanvasLayer/icons" unique_id=181151862 instance=ExtResource("5_v6rmk")]
+layout_mode = 0
 animatedSpiteSpriteFrames = SubResource("SpriteFrames_uhjc5")
 
-[node name="MagicFire" parent="CanvasLayer/icons" instance=ExtResource("5_v6rmk")]
+[node name="MagicFire" parent="CanvasLayer/icons" unique_id=1659557022 instance=ExtResource("5_v6rmk")]
+layout_mode = 0
 animatedSpiteSpriteFrames = SubResource("SpriteFrames_4krld")
+
+[node name="lifes" type="Control" parent="CanvasLayer" unique_id=1240236205]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="life" type="AnimatedSprite2D" parent="CanvasLayer/lifes" unique_id=1892980669]
+position = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_lbj6w")
+frame = 1
+frame_progress = 0.15628906
 
 [connection signal="press" from="CanvasLayer/icons/MagicStick" to="." method="_on_magic_stick_press"]
 [connection signal="press" from="CanvasLayer/icons/MagicFreeze" to="." method="_on_magic_freeze_press"]

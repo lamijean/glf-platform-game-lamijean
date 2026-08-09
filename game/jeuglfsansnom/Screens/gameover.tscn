@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://g8qrqo8sfvoi"]
+
+[ext_resource type="Theme" uid="uid://baqbjvs68nlkt" path="res://Screens/screens.tres" id="1_7ad52"]
+
+[node name="Gameover" type="Node2D" unique_id=1404240997]
+
+[node name="Control" type="Control" parent="." unique_id=2016491455]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_7ad52")
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=578199092]
+layout_mode = 0
+offset_right = 1157.0
+offset_bottom = 645.0
+color = Color(0, 0, 0, 1)
+
+[node name="PlayButton" type="Button" parent="Control" unique_id=1693363436]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 177.0
+offset_right = 426.0
+offset_bottom = 232.0
+text = "Play again"
+
+[node name="Label" type="Label" parent="Control" unique_id=542567614]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 35.0
+offset_right = 892.0
+offset_bottom = 130.0
+theme_override_font_sizes/font_size = 25
+text = "Game over"

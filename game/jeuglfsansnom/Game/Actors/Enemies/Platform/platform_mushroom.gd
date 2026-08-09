@@ -56,3 +56,9 @@ func final_die():
 	life-=1
 	if life<=0:
 		queue_free()
+
+
+func _on_hit_area_body_entered(body: Node2D) -> void:
+	if body is PlatformPlayer:
+		GlobalEvents.player_is_damaged.emit()
+	pass # Replace with function body.

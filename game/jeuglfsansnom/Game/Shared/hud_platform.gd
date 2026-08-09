@@ -15,10 +15,35 @@ var numberOfIconEnabled:int=0
 
 const iconMargin:int=2
 
+@onready var _lifeIcon=$CanvasLayer/lifes/life
+
+@onready var _lifes=$CanvasLayer/lifes
+
+var _lifeIconBase=null
+
 func _ready() -> void:
 	for iconLoop:Control in icons.get_children():
 		iconLoop.visible=false
 
+func build_lifes(number:int):
+	for i in range(number):
+		var new_life = _lifeIcon.duplicate()
+		new_life.position.x += i * 10
+		_lifes.add_child(new_life)
+
+func update_life(number:int):
+	var i=0
+	for child:AnimatedSprite2D in _lifes.get_children():
+		if i<=number:
+			child.visible=true
+		else:
+			if(number==i-1):
+				child.play()
+				await child.animation_finished
+				#await get_tree().create_timer(0.8).timeout
+			child.visible=false
+		i+=1
+	
 
 func enableIcon(icon:String):
 	unselect_all_icons()

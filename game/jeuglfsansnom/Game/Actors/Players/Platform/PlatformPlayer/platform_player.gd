@@ -18,6 +18,8 @@ const STATE_IDLE = "idle"
 const STATE_WALKING = "walking"
 const STATE_USE_MAGIC_STICK = "use-magic-stick"
 
+const STATE_DAMAGED="damaged"
+
 const ANIM_USER_MAGIC_STICK="use-magic-stick"
 const ANIM_USER_MAGIC_FREEZE="use-magic-freeze"
 const ANIM_USER_MAGIC_FIRE="use-magic-fire"
@@ -50,6 +52,8 @@ func _ready() -> void:
 	
 	GlobalEvents.got_magic_stick.connect(bring_magic_stick)	
 
+func took_damage():
+	switch_to_state(STATE_DAMAGED)
 
 func bring_magic_stick():
 	has_magic_stick = true
@@ -70,6 +74,9 @@ func _physics_process(delta: float) -> void:
 		switch_to_state_and_override_animation(STATE_USE_MAGIC_STICK,anim_magic_stick)
  
 	if get_current_state().can_move_left_and_right:
+		
+		if get_current_state().name == STATE_DAMAGED:
+			return
 		
 		_direction = PlayerInputSingleton.get_player_left_or_right_direction()
 		if _direction:

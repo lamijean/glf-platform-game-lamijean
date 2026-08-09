@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://bubk0i851ttv"]
+[gd_scene format=3 uid="uid://bubk0i851ttv"]
 
 [ext_resource type="Script" uid="uid://d1ikhsq3020ha" path="res://Game/Actors/Players/Platform/PlatformPlayer/platform_player.gd" id="1_b57aq"]
 [ext_resource type="Texture2D" uid="uid://cjd0cpnokfimk" path="res://Game/Actors/Players/Platform/PlatformPlayer/player-idle.png" id="2_apsfu"]
+[ext_resource type="Texture2D" uid="uid://fkrp4vrvg0ar" path="res://Game/Shared/hud/player-damaged.png" id="2_s1qyn"]
 [ext_resource type="Script" uid="uid://bl25ar0h7gx8p" path="res://Game/Actors/Players/Platform/PlatformPlayer/states/idle.gd" id="3_3vlj4"]
 [ext_resource type="Script" uid="uid://bygnh73e1rfbo" path="res://Game/Actors/state_machine.gd" id="3_ccm7d"]
 [ext_resource type="Texture2D" uid="uid://cwmj3b3kbn5p6" path="res://Game/Actors/Players/Platform/PlatformPlayer/player-walking.png" id="3_cnhef"]
@@ -12,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b53g512li1ux3" path="res://Game/Actors/Players/Platform/PlatformPlayer/player-walking-without-stick.png" id="7_0c50l"]
 [ext_resource type="Texture2D" uid="uid://b6ewgtwsukaty" path="res://Game/Actors/Players/Platform/PlatformPlayer/player-use-magic-fire.png" id="8_pqeam"]
 [ext_resource type="Script" uid="uid://xvujbe00ur4a" path="res://Game/Actors/Players/Platform/PlatformPlayer/states/use_magic_stick.gd" id="9_5o45m"]
+[ext_resource type="Script" uid="uid://bea87r6evnwf7" path="res://Game/Actors/Players/Platform/PlatformPlayer/states/damaged.gd" id="13_21b18"]
 
 [sub_resource type="Animation" id="Animation_ycgij"]
 length = 0.001
@@ -62,6 +64,70 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_s1qyn"]
+resource_name = "damaged"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_s1qyn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.16666667, 0.26666668, 0.36666667, 0.43832132, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.85348606, 0.026281772, 5.7756904e-07, 1), Color(1, 1, 1, 1), Color(0.56980944, 0.014809856, 9.62615e-08, 1), Color(1, 1, 1, 1), Color(0.56980944, 0.014809856, 9.62615e-08, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_c700w"]
@@ -385,6 +451,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b85n4"]
 _data = {
 &"RESET": SubResource("Animation_ycgij"),
+&"damaged": SubResource("Animation_s1qyn"),
 &"idle": SubResource("Animation_c700w"),
 &"idle-without-stick": SubResource("Animation_0c50l"),
 &"use-magic-fire": SubResource("Animation_21b18"),
@@ -401,64 +468,70 @@ size = Vector2(4, 6)
 radius = 5.0
 height = 16.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "state_machine")]
+[node name="Player" type="CharacterBody2D" unique_id=1042805841 node_paths=PackedStringArray("sprite", "state_machine")]
 script = ExtResource("1_b57aq")
 sprite = NodePath("Sprite2D")
 state_machine = NodePath("StateMachine")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=591073927]
 root_node = NodePath("../Sprite2D")
-libraries = {
-&"": SubResource("AnimationLibrary_b85n4")
-}
+libraries/ = SubResource("AnimationLibrary_b85n4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=145587066]
 
-[node name="hit" type="Area2D" parent="Sprite2D"]
+[node name="hit" type="Area2D" parent="Sprite2D" unique_id=54760670]
 
-[node name="fireMarker2D" type="Marker2D" parent="Sprite2D/hit"]
+[node name="fireMarker2D" type="Marker2D" parent="Sprite2D/hit" unique_id=882811565]
 position = Vector2(13, 10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/hit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/hit" unique_id=919908109]
 position = Vector2(11, 11)
 shape = SubResource("RectangleShape2D_bqpvb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1987417186]
 position = Vector2(1, 7)
 shape = SubResource("CapsuleShape2D_qfgbi")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "animation_player")]
+[node name="StateMachine" type="Node" parent="." unique_id=1093624050 node_paths=PackedStringArray("current_state", "animation_player")]
 script = ExtResource("3_ccm7d")
 current_state = NodePath("idle")
 animation_player = NodePath("../AnimationPlayer")
 
-[node name="idle" type="Node" parent="StateMachine"]
+[node name="idle" type="Node" parent="StateMachine" unique_id=1266886002]
 script = ExtResource("3_3vlj4")
 can_move_left_and_right = true
 can_jump = true
 animation_name = "idle"
 
-[node name="idle-without-stick" type="Node" parent="StateMachine"]
+[node name="idle-without-stick" type="Node" parent="StateMachine" unique_id=12761948]
 script = ExtResource("3_3vlj4")
 can_move_left_and_right = true
 can_jump = true
 animation_name = "idle-without-stick"
 
-[node name="walking" type="Node" parent="StateMachine"]
+[node name="walking" type="Node" parent="StateMachine" unique_id=18402293]
 script = ExtResource("5_gfwjf")
 can_move_left_and_right = true
 can_jump = true
 animation_name = "walking"
 
-[node name="walking-without-stick" type="Node" parent="StateMachine"]
+[node name="walking-without-stick" type="Node" parent="StateMachine" unique_id=926041902]
 script = ExtResource("5_gfwjf")
 can_move_left_and_right = true
 can_jump = true
 animation_name = "walking-without-stick"
 
-[node name="use-magic-stick" type="Node" parent="StateMachine"]
+[node name="use-magic-stick" type="Node" parent="StateMachine" unique_id=703109437]
 script = ExtResource("9_5o45m")
 has_gravity = false
 animation_name = "use-magic-stick"
+
+[node name="damaged" type="Node" parent="StateMachine" unique_id=504579530]
+script = ExtResource("13_21b18")
+can_move_left_and_right = true
+can_move_up = true
+can_move_down = true
+can_jump = true
+animation_name = "damaged"
 
 [connection signal="body_entered" from="Sprite2D/hit" to="." method="_on_hit_body_entered"]

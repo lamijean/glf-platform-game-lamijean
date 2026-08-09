@@ -6,3 +6,5 @@ signal got_magic_fire_sort
 
 signal player_is_damaged
 signal player_killed_enemy
+
+signal gameover

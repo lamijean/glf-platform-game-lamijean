@@ -5,6 +5,9 @@ extends Node2D
 @onready var player:PlatformPlayer=$PlatformPlayer
 
 const DEBUG=false
+const MAX_LIFE=4
+
+var _life:int=4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +15,10 @@ func _ready() -> void:
 	
 	GlobalEvents.got_magic_freeze_sort.connect(on_player_got_magic_freeze_sort)
 	GlobalEvents.got_magic_fire_sort.connect(on_player_got_magic_fire_sort)
-
+	
+	GlobalEvents.player_is_damaged.connect(on_player_is_damaged)
+	
+	GlobalEvents.gameover.connect(on_gameover)
 
 	if DEBUG:
 		
@@ -21,8 +27,26 @@ func _ready() -> void:
 		GlobalEvents.got_magic_fire_sort.emit()
 
 		player.position.x+=200
+	
+	hud.build_lifes(MAX_LIFE)
 
 	pass # Replace with function body.
+
+func on_gameover():
+	await get_tree().create_timer(0.2).timeout
+	get_tree().change_scene_to_file("res://Screens/gameover.tscn")
+
+func update_life():
+	hud.update_life(_life)
+
+func on_player_is_damaged():
+	player.took_damage()
+	_life-=1
+	update_life()
+	
+	if _life==0:
+		GlobalEvents.gameover.emit()
+	pass
 
 func on_player_got_magic_stick():
 	hud.enableIcon(HudPlatform.MAGIC_STICK)
