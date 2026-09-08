@@ -84,3 +84,7 @@ func _on_hud_player_select_magic_freeze() -> void:
 func _on_hud_player_select_magic_stick() -> void:
 	player.select_magic_stick()
 	pass # Replace with function body.
+
+
+func _on_Death_Zone_2d_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

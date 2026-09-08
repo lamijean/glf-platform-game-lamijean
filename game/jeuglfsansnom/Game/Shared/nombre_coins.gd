@@ -1,16 +1,16 @@
-extends Node2D
+extends Label
 
-
-@export var menu_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	await get_tree().create_timer(4.0).timeout
-	get_tree().change_scene_to_packed(menu_scene)
-
+	GlobalEvents.gameover.connect(_on_game_over) 
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	text = "Coins : " + str(GlobalEvents.total_ce_coins )
 	pass
+
+func _on_game_over(): 
+		GlobalEvents.total_ce_coins = 0

@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://c0mis2xercix6"]
+
+[ext_resource type="Texture2D" uid="uid://cc1ws4itjmyml" path="res://Game/Autoload/Coins-1.png.png" id="1_xh5we"]
+[ext_resource type="Texture2D" uid="uid://t6nelxhmllja" path="res://Game/Autoload/Coins-2.png.png" id="2_f0pvk"]
+[ext_resource type="Texture2D" uid="uid://b5sbqdmpg16he" path="res://Game/Autoload/Coins-3.png.png" id="3_poiso"]
+[ext_resource type="Texture2D" uid="uid://dmfpoi8eo1oco" path="res://Game/Autoload/Coins-4.png.png" id="4_voecy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0s1l2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j53ks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xh5we")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_f0pvk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_poiso")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_voecy")
+}],
+"loop": 1,
+"name": &"Coins",
+"speed": 5.0
+}]
+
+[node name="Coins" type="Area2D" unique_id=1451572613]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1014665931]
+position = Vector2(22.00003, 18)
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CircleShape2D_0s1l2")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D" unique_id=1278618874]
+position = Vector2(7.1525574e-07, -2.3841858e-07)
+scale = Vector2(0.007954657, 0.007959586)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D/Sprite2D" unique_id=264832568]
+position = Vector2(0.011291504, 0.0048828125)
+scale = Vector2(147.4444, 147.47809)
+sprite_frames = SubResource("SpriteFrames_j53ks")
+animation = &"Coins"
+autoplay = "Coins"
+frame_progress = 0.47464693

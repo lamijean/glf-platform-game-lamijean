@@ -12,6 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://bbp6nqqifavj7" path="res://Game/Levels/Level_0/Shared/item_magic_freeze.tscn" id="8_sgmso"]
 [ext_resource type="PackedScene" uid="uid://cxmei1ghmvqt4" path="res://Game/Shared/hudPlatform.tscn" id="10_ilt02"]
 [ext_resource type="PackedScene" uid="uid://c7sbsui82ieoo" path="res://Game/Levels/Level_0/Shared/item_magic_fire.tscn" id="11_knaoy"]
+[ext_resource type="PackedScene" uid="uid://c0mis2xercix6" path="res://Game/Levels/Level_0/COINS/coins.tscn" id="13_p7yal"]
+[ext_resource type="Script" uid="uid://dhuwl7d6js74v" path="res://Game/Levels/Level_0/COINS/coins.gd" id="14_gnc3d"]
+[ext_resource type="Texture2D" uid="uid://blplqohs2opic" path="res://Game/Actors/le bosse final/Bosse Final 1.png.png" id="14_pj4xg"]
+[ext_resource type="Texture2D" uid="uid://ct5kr22gvmwqq" path="res://Game/Actors/le bosse final/Bosse Final 2.png.png" id="15_pvoe6"]
+[ext_resource type="Script" uid="uid://buyr8aibsv6mu" path="res://Game/Levels/Level_0/death_zone.gd" id="17_pvoe6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ws4mt"]
 texture = ExtResource("2_rh00t")
@@ -77,6 +82,23 @@ texture = ExtResource("1_qu20q")
 [sub_resource type="TileSet" id="TileSet_jslg6"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_7spqq")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0s1l2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_pj4xg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_pvoe6")
+}],
+"loop": 1,
+"name": &"le Chat",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0s1l2"]
+size = Vector2(14002, 1195)
 
 [node name="Level0" type="Node2D" unique_id=343980405]
 script = ExtResource("1_3s0rd")
@@ -148,12 +170,37 @@ spawned_item = ExtResource("8_sgmso")
 position = Vector2(1697, 152)
 spawned_item = ExtResource("11_knaoy")
 
+[node name="Coins" parent="." unique_id=1451572613 instance=ExtResource("13_p7yal")]
+position = Vector2(340, 216)
+script = ExtResource("14_gnc3d")
+
+[node name="Coins2" parent="." unique_id=1336281399 instance=ExtResource("13_p7yal")]
+position = Vector2(318, 216)
+script = ExtResource("14_gnc3d")
+
 [node name="enemies" type="Node2D" parent="." unique_id=1082388098]
 position = Vector2(205, 214)
+
+[node name="leBossFinal" type="AnimatedSprite2D" parent="enemies" unique_id=1323643805]
+position = Vector2(2101, 21)
+sprite_frames = SubResource("SpriteFrames_0s1l2")
+animation = &"le Chat"
+autoplay = "le Chat"
+frame_progress = 0.81782246
 
 [node name="PlatformMushroom" parent="enemies" unique_id=809537273 instance=ExtResource("8_madtp")]
 position = Vector2(342, 10)
 
+[node name="Area2D" type="Area2D" parent="enemies" unique_id=1493171795]
+
+[node name="DeathZone" type="CollisionShape2D" parent="enemies/Area2D" unique_id=969248606]
+position = Vector2(1636, 1560.5)
+shape = SubResource("RectangleShape2D_0s1l2")
+script = ExtResource("17_pvoe6")
+
 [connection signal="player_select_magic_fire" from="PlatformPlayer/Camera2D/HUD" to="." method="_on_hud_player_select_magic_fire"]
 [connection signal="player_select_magic_freeze" from="PlatformPlayer/Camera2D/HUD" to="." method="_on_hud_player_select_magic_freeze"]
 [connection signal="player_select_magic_stick" from="PlatformPlayer/Camera2D/HUD" to="." method="_on_hud_player_select_magic_stick"]
+[connection signal="body_entered" from="Coins" to="Coins" method="_on_Coins_body_entered"]
+[connection signal="body_entered" from="Coins2" to="Coins2" method="_on_Coins_body_entered"]
+[connection signal="body_entered" from="enemies/Area2D" to="enemies/Area2D/DeathZone" method="_on_Death_Zone_2d_body_entered"]

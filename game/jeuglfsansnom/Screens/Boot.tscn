@@ -1,19 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk8ja2pba58o5"]
+[gd_scene format=3 uid="uid://bk8ja2pba58o5"]
 
 [ext_resource type="Script" uid="uid://btllm4il81l5l" path="res://Screens/boot.gd" id="1_bqsqb"]
 [ext_resource type="Texture2D" uid="uid://dymn8rcvoj12j" path="res://Screens/assets/logo-glf.png" id="1_cma5i"]
 [ext_resource type="PackedScene" uid="uid://d1cvrqr2gtfuv" path="res://Screens/Menu.tscn" id="2_fdmo8"]
+[ext_resource type="VideoStream" path="/home/jean/Projets/vidéo-intro.ogv" id="4_ghnn7"]
 
-[node name="Boot" type="Node2D"]
+[node name="Boot" type="Node2D" unique_id=531641293]
 script = ExtResource("1_bqsqb")
 menu_scene = ExtResource("2_fdmo8")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=358935577]
 offset_right = 1150.0
 offset_bottom = 641.0
 color = Color(0.188235, 0.32549, 0.611765, 1)
 
-[node name="Logo-glf" type="Sprite2D" parent="."]
+[node name="Logo-glf" type="Sprite2D" parent="." unique_id=724064117]
 position = Vector2(220, 127)
 scale = Vector2(0.72449, 0.72449)
 texture = ExtResource("1_cma5i")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=262098314]
+offset_left = -35.0
+offset_right = 1885.0
+offset_bottom = 1080.0
+scale = Vector2(0.3, 0.3)
+stream = ExtResource("4_ghnn7")
+autoplay = true

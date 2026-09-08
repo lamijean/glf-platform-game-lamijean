@@ -8,3 +8,5 @@ signal player_is_damaged
 signal player_killed_enemy
 
 signal gameover
+
+var total_ce_coins = 0
